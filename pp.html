@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สามเหลี่ยมหมุนรอบดวงอาทิตย์ - Modern UI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0b1026 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* จุดดาวพื้นหลังเพื่อความ modern */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="white"/><circle cx="30" cy="40" r="1.5" fill="white"/><circle cx="70" cy="20" r="1" fill="white"/><circle cx="50" cy="80" r="1.2" fill="white"/><circle cx="90" cy="60" r="1" fill="white"/></svg>') repeat;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .solar-system {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            max-width: 90vw;
+            max-height: 90vh;
+        }
+
+        /* ดวงอาทิตย์ */
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #ffdd00, #f9a700, #ff4500);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 80px #ffaa00, 0 0 150px #ff6600;
+            z-index: 10;
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 80px #ffaa00, 0 0 150px #ff6600; }
+            100% { box-shadow: 0 0 100px #ffdd00, 0 0 200px #ff8800; }
+        }
+
+        /* เส้น orbit */
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 400px;
+            height: 400px;
+            border: 2px dashed rgba(100, 200, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: orbit 20s linear infinite;
+        }
+
+        /* สามเหลี่ยม (แทนดาวเคราะห์) */
+        .triangle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin-left: -30px;
+            margin-top: -30px;
+            background: linear-gradient(135deg, #00ffff, #00ffaa);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            box-shadow: 0 0 30px #00ffff;
+            animation: rotate-self 3s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes orbit {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes rotate-self {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* เพิ่ม orbit เส้นให้ดู modern */
+        .orbit::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="solar-system">
+        <!-- ดวงอาทิตย์ -->
+        <div class="sun"></div>
+
+        <!-- Orbit + สามเหลี่ยม -->
+        <div class="orbit">
+            <div class="triangle"></div>
+        </div>
+    </div>
+</body>
+</html>
